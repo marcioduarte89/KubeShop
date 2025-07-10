@@ -1,0 +1,2 @@
+# KubeShop
+Playground for Kubernetes
