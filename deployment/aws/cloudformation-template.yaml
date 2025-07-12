@@ -1,0 +1,62 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation template to deploy a publicly accessible PostgreSQL RDS
+  instance in the default VPC for development use, conforming to AWS Free Tier limits.
+Parameters:
+  DBUsername:
+    Description: The database admin account username
+    Type: String
+    MinLength: 1
+    MaxLength: 16
+    AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*'
+    ConstraintDescription: must begin with a letter and contain only alphanumeric
+      characters.
+  DBPassword:
+    Description: The database admin account password
+    Type: String
+    NoEcho: true
+    MinLength: 8
+    MaxLength: 41
+    AllowedPattern: '[a-zA-Z0-9]*'
+    ConstraintDescription: must contain only alphanumeric characters.
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+    Description: VPC ID where the RDS instance will be deployed (select the default VPC for development)
+Resources:
+  PostgresSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable PostgreSQL access from anywhere
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 5432
+        ToPort: 5432
+        CidrIp: 0.0.0.0/0
+      VpcId:
+        Ref: VpcId
+  PostgresDBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceClass: db.t3.micro
+      AllocatedStorage: '20'
+      Engine: postgres
+      MasterUsername:
+        Ref: DBUsername
+      MasterUserPassword:
+        Ref: DBPassword
+      PubliclyAccessible: true
+      VPCSecurityGroups:
+      - Fn::GetAtt:
+        - PostgresSecurityGroup
+        - GroupId
+      DBName: InitialDb
+      BackupRetentionPeriod: 0
+      StorageType: gp2
+      DeletionProtection: false
+      MultiAZ: false
+Outputs:
+  DBEndpoint:
+    Description: The connection endpoint for the PostgreSQL RDS instance
+    Value:
+      Fn::GetAtt:
+      - PostgresDBInstance
+      - Endpoint.Address

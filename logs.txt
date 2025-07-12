@@ -1,0 +1,189 @@
+* 
+* ==> Audit <==
+* |---------|----------------------------------------|-------------|----------------|---------|---------------------|---------------------|
+| Command |                  Args                  |   Profile   |      User      | Version |     Start Time      |      End Time       |
+|---------|----------------------------------------|-------------|----------------|---------|---------------------|---------------------|
+| start   | --driver=hyperv                        | minikube    | EMEA\mduart639 | v1.30.1 | 18 Jun 25 21:39 BST |                     |
+|         | --hyperv-virtual-switch=MinikubeSwitch |             |                |         |                     |                     |
+|         | --memory=4096 --cpus=2                 |             |                |         |                     |                     |
+|         | --addons=ingress --addons=ingress-dns  |             |                |         |                     |                     |
+| start   | -p minikube-hv --driver=hyperv         | minikube-hv | EMEA\mduart639 | v1.30.1 | 19 Jun 25 20:28 BST |                     |
+|         | --hyperv-virtual-switch=MinikubeSwitch |             |                |         |                     |                     |
+|         | --memory=4096 --cpus=2                 |             |                |         |                     |                     |
+|         | --addons=ingress --addons=ingress-dns  |             |                |         |                     |                     |
+| stop    |                                        | minikube    | EMEA\mduart639 | v1.30.1 | 19 Jun 25 20:43 BST |                     |
+| start   | --driver=hyperv                        | minikube    | EMEA\mduart639 | v1.30.1 | 19 Jun 25 20:43 BST |                     |
+|         | --hyperv-virtual-switch=MinikubeWiFi   |             |                |         |                     |                     |
+|         | --memory=4096 --cpus=2                 |             |                |         |                     |                     |
+|         | --addons=ingress                       |             |                |         |                     |                     |
+|         | --addons=ingress-dns                   |             |                |         |                     |                     |
+| start   | --driver=hyperv                        | minikube    | EMEA\mduart639 | v1.30.1 | 19 Jun 25 20:45 BST |                     |
+|         | --hyperv-virtual-switch=MinikubeWiFi   |             |                |         |                     |                     |
+|         | --memory=4096 --cpus=2                 |             |                |         |                     |                     |
+|         | --addons=ingress                       |             |                |         |                     |                     |
+|         | --addons=ingress-dns                   |             |                |         |                     |                     |
+| start   | --driver=hyperv                        | minikube    | EMEA\mduart639 | v1.30.1 | 19 Jun 25 20:46 BST |                     |
+|         | --hyperv-virtual-switch=MinikubeWiFi   |             |                |         |                     |                     |
+|         | --memory=4096 --cpus=2                 |             |                |         |                     |                     |
+|         | --addons=ingress                       |             |                |         |                     |                     |
+|         | --addons=ingress-dns                   |             |                |         |                     |                     |
+| delete  |                                        | minikube    | EMEA\mduart639 | v1.30.1 | 19 Jun 25 20:48 BST | 19 Jun 25 20:48 BST |
+| start   | --driver=hyperv                        | minikube    | EMEA\mduart639 | v1.30.1 | 19 Jun 25 20:49 BST | 19 Jun 25 20:51 BST |
+|         | --hyperv-virtual-switch=MinikubeWiFi   |             |                |         |                     |                     |
+|         | --memory=4096 --cpus=2                 |             |                |         |                     |                     |
+|         | --addons=ingress                       |             |                |         |                     |                     |
+|         | --addons=ingress-dns                   |             |                |         |                     |                     |
+| tunnel  |                                        | minikube    | EMEA\mduart639 | v1.30.1 | 19 Jun 25 20:55 BST |                     |
+| ip      |                                        | minikube    | EMEA\mduart639 | v1.30.1 | 19 Jun 25 21:20 BST | 19 Jun 25 21:20 BST |
+| start   | --driver=hyperv                        | minikube    | EMEA\mduart639 | v1.30.1 | 20 Jun 25 14:44 BST |                     |
+|         | --hyperv-virtual-switch=MinikubeWiFi   |             |                |         |                     |                     |
+|         | --memory=4096 --cpus=2                 |             |                |         |                     |                     |
+|         | --addons=ingress                       |             |                |         |                     |                     |
+|         | --addons=ingress-dns                   |             |                |         |                     |                     |
+| start   | --driver=hyperv                        | minikube    | EMEA\mduart639 | v1.30.1 | 20 Jun 25 14:49 BST |                     |
+|         | --hyperv-virtual-switch=MinikubeWiFi   |             |                |         |                     |                     |
+|         | --memory=4096 --cpus=2                 |             |                |         |                     |                     |
+|         | --addons=ingress                       |             |                |         |                     |                     |
+|         | --addons=ingress-dns                   |             |                |         |                     |                     |
+| start   | --driver=hyperv                        | minikube    | EMEA\mduart639 | v1.30.1 | 20 Jun 25 14:56 BST |                     |
+|         | --hyperv-virtual-switch=MinikubeWiFi   |             |                |         |                     |                     |
+|         | --memory=4096 --cpus=2                 |             |                |         |                     |                     |
+|         | --addons=ingress                       |             |                |         |                     |                     |
+|         | --addons=ingress-dns                   |             |                |         |                     |                     |
+| start   | --driver=hyperv --memory=4096          | minikube    | EMEA\mduart639 | v1.30.1 | 20 Jun 25 15:06 BST |                     |
+|         | --cpus=2 --addons=ingress              |             |                |         |                     |                     |
+|         | --addons=ingress-dns                   |             |                |         |                     |                     |
+| start   | --driver=hyperv                        | minikube    | EMEA\mduart639 | v1.30.1 | 20 Jun 25 15:09 BST |                     |
+|         | --hyperv-virtual-switch=MinikubeSwitch |             |                |         |                     |                     |
+|         | --memory=4096 --cpus=2                 |             |                |         |                     |                     |
+|         | --addons=ingress --addons=ingress-dns  |             |                |         |                     |                     |
+| start   | --driver=hyperv                        | minikube    | EMEA\mduart639 | v1.30.1 | 20 Jun 25 15:11 BST | 20 Jun 25 15:13 BST |
+|         | --hyperv-virtual-switch=MinikubeWiFi   |             |                |         |                     |                     |
+|         | --memory=4096 --cpus=2                 |             |                |         |                     |                     |
+|         | --addons=ingress                       |             |                |         |                     |                     |
+|         | --addons=ingress-dns                   |             |                |         |                     |                     |
+| ip      |                                        | minikube    | EMEA\mduart639 | v1.30.1 | 20 Jun 25 15:14 BST | 20 Jun 25 15:14 BST |
+| tunnel  |                                        | minikube    | EMEA\mduart639 | v1.30.1 | 20 Jun 25 15:15 BST |                     |
+| start   | --driver=hyperv                        | minikube    | EMEA\mduart639 | v1.30.1 | 07 Jul 25 14:38 BST |                     |
+|         | --hyperv-virtual-switch=MinikubeWiFi   |             |                |         |                     |                     |
+|         | --memory=4096 --cpus=2                 |             |                |         |                     |                     |
+|         | --addons=ingress                       |             |                |         |                     |                     |
+|         | --addons=ingress-dns                   |             |                |         |                     |                     |
+| start   | --driver=hyperv                        | minikube    | EMEA\mduart639 | v1.30.1 | 07 Jul 25 14:47 BST |                     |
+|         | --hyperv-virtual-switch=MinikubeSwitch |             |                |         |                     |                     |
+|         | --memory=4096 --cpus=2                 |             |                |         |                     |                     |
+|         | --addons=ingress --addons=ingress-dns  |             |                |         |                     |                     |
+| delete  |                                        | minikube    | EMEA\mduart639 | v1.30.1 | 07 Jul 25 14:53 BST | 07 Jul 25 14:53 BST |
+| start   | --driver=hyperv                        | minikube    | EMEA\mduart639 | v1.30.1 | 07 Jul 25 14:53 BST |                     |
+|         | --hyperv-virtual-switch=MinikubeSwitch |             |                |         |                     |                     |
+|         | --memory=4096 --cpus=2                 |             |                |         |                     |                     |
+|         | --addons=ingress --addons=ingress-dns  |             |                |         |                     |                     |
+| start   | --driver=hyperv                        | minikube    | EMEA\mduart639 | v1.30.1 | 07 Jul 25 15:03 BST |                     |
+|         | --hyperv-virtual-switch=MinikubeSwitch |             |                |         |                     |                     |
+|         | --memory=4096 --cpus=2                 |             |                |         |                     |                     |
+|         | --addons=ingress --addons=ingress-dns  |             |                |         |                     |                     |
+| ip      |                                        | minikube    | EMEA\mduart639 | v1.30.1 | 07 Jul 25 15:03 BST |                     |
+| start   | --driver=hyperv                        | minikube    | EMEA\mduart639 | v1.30.1 | 07 Jul 25 15:04 BST |                     |
+|         | --hyperv-virtual-switch=MinikubeSwitch |             |                |         |                     |                     |
+|         | --memory=4096 --cpus=2                 |             |                |         |                     |                     |
+|         | --addons=ingress --addons=ingress-dns  |             |                |         |                     |                     |
+|---------|----------------------------------------|-------------|----------------|---------|---------------------|---------------------|
+
+* 
+* ==> Last Start <==
+* Log file created at: 2025/07/07 15:04:32
+Running on machine: UKSWL-1691808
+Binary: Built with gc go1.20.2 for windows/amd64
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0707 15:04:32.254443   17644 out.go:296] Setting OutFile to fd 104 ...
+I0707 15:04:32.255006   17644 out.go:343] TERM=,COLORTERM=, which probably does not support color
+I0707 15:04:32.255006   17644 out.go:309] Setting ErrFile to fd 108...
+I0707 15:04:32.255006   17644 out.go:343] TERM=,COLORTERM=, which probably does not support color
+I0707 15:04:35.793043   17644 out.go:303] Setting JSON to false
+I0707 15:04:35.810987   17644 start.go:125] hostinfo: {"hostname":"UKSWL-1691808","uptime":20222,"bootTime":1751876853,"procs":475,"os":"windows","platform":"Microsoft Windows 11 Pro","platformFamily":"Standalone Workstation","platformVersion":"10.0.26100.4349 Build 26100.4349","kernelVersion":"10.0.26100.4349 Build 26100.4349","kernelArch":"x86_64","virtualizationSystem":"","virtualizationRole":"","hostId":"081432e1-83ce-466d-9ef3-84eea735b810"}
+W0707 15:04:35.810987   17644 start.go:133] gopshost.Virtualization returned error: not implemented yet
+I0707 15:04:35.812177   17644 out.go:177] * minikube v1.30.1 on Microsoft Windows 11 Pro 10.0.26100.4349 Build 26100.4349
+I0707 15:04:35.813304   17644 notify.go:220] Checking for updates...
+I0707 15:04:35.815422   17644 config.go:182] Loaded profile config "minikube": Driver=hyperv, ContainerRuntime=docker, KubernetesVersion=v1.26.3
+I0707 15:04:35.817012   17644 driver.go:375] Setting default libvirt URI to qemu:///system
+I0707 15:04:37.946318   17644 out.go:177] * Using the hyperv driver based on existing profile
+I0707 15:04:37.947627   17644 start.go:295] selected driver: hyperv
+I0707 15:04:37.947627   17644 start.go:870] validating driver "hyperv" against &{Name:minikube KeepContext:false EmbedCerts:false MinikubeISO:https://storage.googleapis.com/minikube/iso/minikube-v1.30.1-amd64.iso KicBaseImage:gcr.io/k8s-minikube/kicbase:v0.0.39@sha256:bf2d9f1e9d837d8deea073611d2605405b6be904647d97ebd9b12045ddfe1106 Memory:4096 CPUs:2 DiskSize:20000 VMDriver: Driver:hyperv HyperkitVpnKitSock: HyperkitVSockPorts:[] DockerEnv:[] ContainerVolumeMounts:[] InsecureRegistry:[] RegistryMirror:[] HostOnlyCIDR:192.168.59.1/24 HypervVirtualSwitch:MinikubeSwitch HypervUseExternalSwitch:false HypervExternalAdapter: KVMNetwork:default KVMQemuURI:qemu:///system KVMGPU:false KVMHidden:false KVMNUMACount:1 APIServerPort:0 DockerOpt:[] DisableDriverMounts:false NFSShare:[] NFSSharesRoot:/nfsshares UUID: NoVTXCheck:false DNSProxy:false HostDNSResolver:true HostOnlyNicType:virtio NatNicType:virtio SSHIPAddress: SSHUser:root SSHKey: SSHPort:22 KubernetesConfig:{KubernetesVersion:v1.26.3 ClusterName:minikube Namespace:default APIServerName:minikubeCA APIServerNames:[] APIServerIPs:[] DNSDomain:cluster.local ContainerRuntime:docker CRISocket: NetworkPlugin:cni FeatureGates: ServiceCIDR:10.96.0.0/12 ImageRepository: LoadBalancerStartIP: LoadBalancerEndIP: CustomIngressCert: RegistryAliases: ExtraOptions:[] ShouldLoadCachedImages:true EnableDefaultCNI:false CNI: NodeIP: NodePort:8443 NodeName:} Nodes:[{Name: IP: Port:8443 KubernetesVersion:v1.26.3 ContainerRuntime:docker ControlPlane:true Worker:true}] Addons:map[] CustomAddonImages:map[] CustomAddonRegistries:map[] VerifyComponents:map[apiserver:true system_pods:true] StartHostTimeout:6m0s ScheduledStop:<nil> ExposedPorts:[] ListenAddress: Network: Subnet: MultiNodeRequested:false ExtraDisks:0 CertExpiration:26280h0m0s Mount:false MountString:C:\Users\mduart639:/minikube-host Mount9PVersion:9p2000.L MountGID:docker MountIP: MountMSize:262144 MountOptions:[] MountPort:0 MountType:9p MountUID:docker BinaryMirror: DisableOptimizations:false DisableMetrics:false CustomQemuFirmwarePath: SocketVMnetClientPath: SocketVMnetPath: StaticIP:}
+I0707 15:04:37.947627   17644 start.go:881] status for hyperv: {Installed:true Healthy:true Running:false NeedsImprovement:false Error:<nil> Reason: Fix: Doc: Version:}
+I0707 15:04:38.050294   17644 cni.go:84] Creating CNI manager for ""
+I0707 15:04:38.050294   17644 cni.go:157] "hyperv" driver + "docker" container runtime found on kubernetes v1.24+, recommending bridge
+I0707 15:04:38.050294   17644 start_flags.go:319] config:
+{Name:minikube KeepContext:false EmbedCerts:false MinikubeISO:https://storage.googleapis.com/minikube/iso/minikube-v1.30.1-amd64.iso KicBaseImage:gcr.io/k8s-minikube/kicbase:v0.0.39@sha256:bf2d9f1e9d837d8deea073611d2605405b6be904647d97ebd9b12045ddfe1106 Memory:4096 CPUs:2 DiskSize:20000 VMDriver: Driver:hyperv HyperkitVpnKitSock: HyperkitVSockPorts:[] DockerEnv:[] ContainerVolumeMounts:[] InsecureRegistry:[] RegistryMirror:[] HostOnlyCIDR:192.168.59.1/24 HypervVirtualSwitch:MinikubeSwitch HypervUseExternalSwitch:false HypervExternalAdapter: KVMNetwork:default KVMQemuURI:qemu:///system KVMGPU:false KVMHidden:false KVMNUMACount:1 APIServerPort:0 DockerOpt:[] DisableDriverMounts:false NFSShare:[] NFSSharesRoot:/nfsshares UUID: NoVTXCheck:false DNSProxy:false HostDNSResolver:true HostOnlyNicType:virtio NatNicType:virtio SSHIPAddress: SSHUser:root SSHKey: SSHPort:22 KubernetesConfig:{KubernetesVersion:v1.26.3 ClusterName:minikube Namespace:default APIServerName:minikubeCA APIServerNames:[] APIServerIPs:[] DNSDomain:cluster.local ContainerRuntime:docker CRISocket: NetworkPlugin:cni FeatureGates: ServiceCIDR:10.96.0.0/12 ImageRepository: LoadBalancerStartIP: LoadBalancerEndIP: CustomIngressCert: RegistryAliases: ExtraOptions:[] ShouldLoadCachedImages:true EnableDefaultCNI:false CNI: NodeIP: NodePort:8443 NodeName:} Nodes:[{Name: IP: Port:8443 KubernetesVersion:v1.26.3 ContainerRuntime:docker ControlPlane:true Worker:true}] Addons:map[] CustomAddonImages:map[] CustomAddonRegistries:map[] VerifyComponents:map[apiserver:true system_pods:true] StartHostTimeout:6m0s ScheduledStop:<nil> ExposedPorts:[] ListenAddress: Network: Subnet: MultiNodeRequested:false ExtraDisks:0 CertExpiration:26280h0m0s Mount:false MountString:C:\Users\mduart639:/minikube-host Mount9PVersion:9p2000.L MountGID:docker MountIP: MountMSize:262144 MountOptions:[] MountPort:0 MountType:9p MountUID:docker BinaryMirror: DisableOptimizations:false DisableMetrics:false CustomQemuFirmwarePath: SocketVMnetClientPath: SocketVMnetPath: StaticIP:}
+I0707 15:04:38.050294   17644 iso.go:125] acquiring lock: {Name:mk707e3e74db040dabb5be571d0b2064a0b8e79b Clock:{} Delay:500ms Timeout:10m0s Cancel:<nil>}
+I0707 15:04:38.052508   17644 out.go:177] * Starting control plane node minikube in cluster minikube
+I0707 15:04:38.053045   17644 preload.go:132] Checking if preload exists for k8s version v1.26.3 and runtime docker
+I0707 15:04:38.053045   17644 preload.go:148] Found local preload: C:\Users\mduart639\.minikube\cache\preloaded-tarball\preloaded-images-k8s-v18-v1.26.3-docker-overlay2-amd64.tar.lz4
+I0707 15:04:38.053045   17644 cache.go:57] Caching tarball of preloaded images
+I0707 15:04:38.053665   17644 preload.go:174] Found C:\Users\mduart639\.minikube\cache\preloaded-tarball\preloaded-images-k8s-v18-v1.26.3-docker-overlay2-amd64.tar.lz4 in cache, skipping download
+I0707 15:04:38.053665   17644 cache.go:60] Finished verifying existence of preloaded tar for  v1.26.3 on docker
+I0707 15:04:38.054198   17644 profile.go:148] Saving config to C:\Users\mduart639\.minikube\profiles\minikube\config.json ...
+I0707 15:04:38.058455   17644 cache.go:193] Successfully downloaded all kic artifacts
+I0707 15:04:38.058980   17644 start.go:364] acquiring machines lock for minikube: {Name:mkffcc21b1d7ad8879a9398d2eb575b9c33a58be Clock:{} Delay:500ms Timeout:13m0s Cancel:<nil>}
+I0707 15:04:38.058980   17644 start.go:368] acquired machines lock for "minikube" in 0s
+I0707 15:04:38.058980   17644 start.go:96] Skipping create...Using existing machine configuration
+I0707 15:04:38.058980   17644 fix.go:55] fixHost starting: 
+I0707 15:04:38.061112   17644 main.go:141] libmachine: [executing ==>] : C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -NonInteractive ( Hyper-V\Get-VM minikube ).state
+I0707 15:04:39.513934   17644 main.go:141] libmachine: [stdout =====>] : Running
+
+I0707 15:04:39.513934   17644 main.go:141] libmachine: [stderr =====>] : 
+I0707 15:04:39.513934   17644 fix.go:103] recreateIfNeeded on minikube: state=Running err=<nil>
+W0707 15:04:39.513934   17644 fix.go:129] unexpected machine state, will restart: <nil>
+I0707 15:04:39.515774   17644 out.go:177] * Updating the running hyperv "minikube" VM ...
+I0707 15:04:39.516360   17644 machine.go:88] provisioning docker machine ...
+I0707 15:04:39.516360   17644 buildroot.go:166] provisioning hostname "minikube"
+I0707 15:04:39.516360   17644 main.go:141] libmachine: [executing ==>] : C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -NonInteractive ( Hyper-V\Get-VM minikube ).state
+I0707 15:04:40.918808   17644 main.go:141] libmachine: [stdout =====>] : Running
+
+I0707 15:04:40.918808   17644 main.go:141] libmachine: [stderr =====>] : 
+I0707 15:04:40.918808   17644 main.go:141] libmachine: [executing ==>] : C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -NonInteractive (( Hyper-V\Get-VM minikube ).networkadapters[0]).ipaddresses[0]
+I0707 15:04:42.723899   17644 main.go:141] libmachine: [stdout =====>] : 
+I0707 15:04:42.723899   17644 main.go:141] libmachine: [stderr =====>] : 
+I0707 15:04:42.723899   17644 machine.go:91] provisioned docker machine in 3.2075419s
+I0707 15:04:42.723899   17644 fix.go:57] fixHost completed within 4.6649234s
+I0707 15:04:42.723899   17644 start.go:83] releasing machines lock for "minikube", held for 4.6649234s
+W0707 15:04:42.723899   17644 start.go:687] error starting host: provision: IP not found
+W0707 15:04:42.724576   17644 out.go:239] ! StartHost failed, but will try again: provision: IP not found
+I0707 15:04:42.725103   17644 start.go:702] Will try again in 5 seconds ...
+I0707 15:04:47.735879   17644 start.go:364] acquiring machines lock for minikube: {Name:mkffcc21b1d7ad8879a9398d2eb575b9c33a58be Clock:{} Delay:500ms Timeout:13m0s Cancel:<nil>}
+I0707 15:04:47.736387   17644 start.go:368] acquired machines lock for "minikube" in 507.4µs
+I0707 15:04:47.736387   17644 start.go:96] Skipping create...Using existing machine configuration
+I0707 15:04:47.736387   17644 fix.go:55] fixHost starting: 
+I0707 15:04:47.738047   17644 main.go:141] libmachine: [executing ==>] : C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -NonInteractive ( Hyper-V\Get-VM minikube ).state
+I0707 15:04:49.048338   17644 main.go:141] libmachine: [stdout =====>] : Running
+
+I0707 15:04:49.048338   17644 main.go:141] libmachine: [stderr =====>] : 
+I0707 15:04:49.048338   17644 fix.go:103] recreateIfNeeded on minikube: state=Running err=<nil>
+W0707 15:04:49.048338   17644 fix.go:129] unexpected machine state, will restart: <nil>
+I0707 15:04:49.049600   17644 out.go:177] * Updating the running hyperv "minikube" VM ...
+I0707 15:04:49.050396   17644 machine.go:88] provisioning docker machine ...
+I0707 15:04:49.050396   17644 buildroot.go:166] provisioning hostname "minikube"
+I0707 15:04:49.050396   17644 main.go:141] libmachine: [executing ==>] : C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -NonInteractive ( Hyper-V\Get-VM minikube ).state
+I0707 15:04:50.386515   17644 main.go:141] libmachine: [stdout =====>] : Running
+
+I0707 15:04:50.386515   17644 main.go:141] libmachine: [stderr =====>] : 
+I0707 15:04:50.386515   17644 main.go:141] libmachine: [executing ==>] : C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -NonInteractive (( Hyper-V\Get-VM minikube ).networkadapters[0]).ipaddresses[0]
+I0707 15:04:52.020011   17644 main.go:141] libmachine: [stdout =====>] : 
+I0707 15:04:52.020011   17644 main.go:141] libmachine: [stderr =====>] : 
+I0707 15:04:52.020011   17644 machine.go:91] provisioned docker machine in 2.9696191s
+I0707 15:04:52.020011   17644 fix.go:57] fixHost completed within 4.2836294s
+I0707 15:04:52.020011   17644 start.go:83] releasing machines lock for "minikube", held for 4.2836294s
+W0707 15:04:52.020583   17644 out.go:239] * Failed to start hyperv VM. Running "minikube delete" may fix it: provision: IP not found
+I0707 15:04:52.022211   17644 out.go:177] 
+W0707 15:04:52.022746   17644 out.go:239] X Exiting due to GUEST_PROVISION: error provisioning guest: Failed to start host: provision: IP not found
+W0707 15:04:52.023384   17644 out.go:239] * 
+W0707 15:04:52.024424   17644 out.go:239] ╭─────────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                             │
+│    * If the above advice does not help, please let us know:                                 │
+│      https://github.com/kubernetes/minikube/issues/new/choose                               │
+│                                                                                             │
+│    * Please run `minikube logs --file=logs.txt` and attach logs.txt to the GitHub issue.    │
+│                                                                                             │
+╰─────────────────────────────────────────────────────────────────────────────────────────────╯
+I0707 15:04:52.025473   17644 out.go:177] 
+
+* 

@@ -1,0 +1,90 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Order.Api.Infrastructure;
+using Order.Api.Services;
+using Order.Api.Extensions;
+
+namespace Order.Api.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class OrdersController : ControllerBase
+    {
+        private readonly OrderDbContext _context;
+        private readonly IProductService _productService;
+        private const string GET_ORDER = "GetOrder";
+
+        public OrdersController(OrderDbContext context, IProductService productService)
+        {
+            _context = context;
+            _productService = productService;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Models.Ouput.Order>>> GetOrders(CancellationToken cancellationToken)
+        => Ok((await _context.Orders.Include(o => o.Items).ToListAsync(cancellationToken)).Select(x => x.ToOutputOrder()));
+
+        [HttpGet("{id}", Name= GET_ORDER)]
+        public async Task<ActionResult<Models.Ouput.Order>> GetOrder(int id, CancellationToken cancellationToken)
+        {
+            var order = await _context.Orders.Include(o => o.Items).FirstOrDefaultAsync(o => o.Id == id);
+            return order == null ? NotFound() : Ok(order.ToOutputOrder());
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Models.Ouput.Order>> CreateOrder(Models.Input.Order order, CancellationToken cancellationToken)
+        {
+            var productUIds = order.Items.Select(x => x.ProductUId).ToList();
+
+            Console.WriteLine($"Before calling the products");
+
+            var products = await _productService.GetProducts(productUIds, cancellationToken);
+
+            Console.WriteLine($"Managed to deserialize it");
+
+            if (products is null)
+            {
+                return NotFound("Products provided were not found");
+            }
+
+            // TODO:
+            // - Check product ids exist
+            // - Check stock is <= to the requested amount
+
+            var domainOrder = order.ToModelOrder();
+            _context.Orders.Add(domainOrder);
+            await _context.SaveChangesAsync();
+
+            Console.WriteLine($"Saved products");
+
+            return CreatedAtAction(GET_ORDER, new { id = domainOrder.Id }, domainOrder.ToOutputOrder());
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateOrder(int id, Models.Input.Order order)
+        {
+            if (id != order.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(order).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteOrder(int id)
+        {
+            var order = await _context.Orders.FindAsync(id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            _context.Orders.Remove(order);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
+    }
+}

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubeshop-products
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubeshop-products
+  template:
+    metadata:
+      labels:
+        app: kubeshop-products
+    spec:
+      containers:
+        - name: kubeshop-products
+          image: docker.io/marcioduarte89/kubeshop-products:latest
+          ports:
+           - containerPort: 80
