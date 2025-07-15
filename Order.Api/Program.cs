@@ -1,7 +1,13 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Order.Api.Infrastructure;
 using Order.Api.Services;
+
+const string API_NAME = "orders";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,10 +34,35 @@ builder.Services.AddDbContext<OrderDbContext>(options =>
 builder.Services.AddHealthChecks()
     .AddDbContextCheck<OrderDbContext>("DbChecks", tags: ["dbcheck"]);
 
+builder.Logging.AddOpenTelemetry(options =>
+{
+    options
+        .SetResourceBuilder(
+            ResourceBuilder.CreateDefault()
+                .AddService(API_NAME))
+        .AddConsoleExporter()
+        .AddOtlpExporter();
+});
+
+builder.Services.AddOpenTelemetry()
+      .ConfigureResource(resource => resource.AddService(API_NAME))
+      .WithTracing(tracing => tracing
+          .SetSampler(new AlwaysOnSampler())
+          .AddSource(API_NAME)
+          .AddAspNetCoreInstrumentation()
+          .AddHttpClientInstrumentation()
+          .AddConsoleExporter()
+          .AddOtlpExporter())
+      .WithMetrics(metrics => metrics
+          .AddAspNetCoreInstrumentation()
+          .AddConsoleExporter()
+          .AddPrometheusExporter());
+
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseOpenTelemetryPrometheusScrapingEndpoint();
 
 app.UseHttpsRedirection();
 
