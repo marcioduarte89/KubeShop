@@ -21,6 +21,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ProductDbContext>(options =>
 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+<<<<<<< Updated upstream
+=======
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<ProductDbContext>("DbChecks", tags: ["dbcheck"]);
+
 builder.Logging.AddOpenTelemetry(options =>
 {
     options
@@ -45,6 +50,7 @@ builder.Services.AddOpenTelemetry()
           .AddConsoleExporter()
           .AddPrometheusExporter());
 
+>>>>>>> Stashed changes
 var app = builder.Build();
 
 app.UseSwagger();

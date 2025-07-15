@@ -12,12 +12,17 @@ namespace Order.Api.Controllers
     {
         private readonly OrderDbContext _context;
         private readonly IProductService _productService;
+        private readonly ILogger<OrdersController> _logger;
         private const string GET_ORDER = "GetOrder";
 
-        public OrdersController(OrderDbContext context, IProductService productService)
+        public OrdersController(
+            OrderDbContext context, 
+            IProductService productService,
+            ILogger<OrdersController> logger)
         {
             _context = context;
             _productService = productService;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -27,6 +32,7 @@ namespace Order.Api.Controllers
         [HttpGet("{id}", Name= GET_ORDER)]
         public async Task<ActionResult<Models.Ouput.Order>> GetOrder(int id, CancellationToken cancellationToken)
         {
+            _logger.LogInformation("Getting order {id}", id);
             var order = await _context.Orders.Include(o => o.Items).FirstOrDefaultAsync(o => o.Id == id);
             return order == null ? NotFound() : Ok(order.ToOutputOrder());
         }
@@ -34,6 +40,8 @@ namespace Order.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<Models.Ouput.Order>> CreateOrder(Models.Input.Order order, CancellationToken cancellationToken)
         {
+            _logger.LogInformation("Creating orders");
+
             var productUIds = order.Items.Select(x => x.ProductUId).ToList();
 
             Console.WriteLine($"Before calling the products");
@@ -44,6 +52,7 @@ namespace Order.Api.Controllers
 
             if (products is null)
             {
+                _logger.LogInformation("Products not found");
                 return NotFound("Products provided were not found");
             }
 
@@ -63,6 +72,8 @@ namespace Order.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateOrder(int id, Models.Input.Order order)
         {
+            _logger.LogInformation("Updating order {id}", id);
+
             if (id != order.Id)
             {
                 return BadRequest();
