@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
@@ -25,8 +26,13 @@ builder.Services.AddHttpClient<IProductService, ProductService>(client =>
     client.BaseAddress = new Uri(builder.Configuration["ProductApiUrl"]);
 });
 
+builder.Services.AddHealthChecks();
+
 builder.Services.AddDbContext<OrderDbContext>(options =>
  options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<OrderDbContext>("DbChecks", tags: ["dbcheck"]);
 
 builder.Logging.AddOpenTelemetry(options =>
 {
@@ -59,6 +65,16 @@ app.UseSwaggerUI();
 app.UseOpenTelemetryPrometheusScrapingEndpoint();
 
 app.UseHttpsRedirection();
+
+app.MapHealthChecks("/health/live", new HealthCheckOptions
+{
+    Predicate = _ => false
+});
+
+app.MapHealthChecks("/health/ready", new HealthCheckOptions
+{
+    Predicate = healthCheck => healthCheck.Tags.Contains("dbcheck")
+});
 
 app.UseAuthorization();
 

@@ -19,5 +19,20 @@ spec:
       containers:
         - name: kubeshop-products
           image: docker.io/marcioduarte89/kubeshop-products:latest
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 80
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
           ports:
            - containerPort: 80
