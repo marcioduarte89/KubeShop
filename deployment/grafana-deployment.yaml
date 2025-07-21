@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: grafana
+  labels:
+    app: grafana
 spec:
   replicas: 1
   selector:
@@ -24,6 +26,8 @@ spec:
               mountPath: /etc/grafana/provisioning/dashboards
             - name: aspnet-dashboard
               mountPath: /var/lib/grafana/dashboards/aspnet
+            - name: aspnet-endpoint-dashboard
+              mountPath: /var/lib/grafana/dashboards/aspnet-endpoint
       volumes:
         - name: grafana-datasource
           configMap:
@@ -34,3 +38,6 @@ spec:
         - name: aspnet-dashboard
           configMap:
             name: grafana-aspnet-dashboard
+        - name: aspnet-endpoint-dashboard
+          configMap:
+            name: grafana-aspnet-endpoint-dashboard

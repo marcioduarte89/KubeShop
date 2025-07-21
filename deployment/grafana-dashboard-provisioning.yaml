@@ -14,3 +14,11 @@ data:
         editable: true
         options:
           path: /var/lib/grafana/dashboards/aspnet
+      - name: 'aspnet-endpoint'
+        orgId: 1
+        folder: 'ASP.NET'
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/aspnet-endpoint
