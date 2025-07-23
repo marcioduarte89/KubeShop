@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OpenTelemetry.Trace;
+using Order.Api.Extensions;
 using Order.Api.Infrastructure;
 using Order.Api.Services;
-using Order.Api.Extensions;
+using System.Diagnostics;
 
 namespace Order.Api.Controllers
 {
@@ -12,16 +14,19 @@ namespace Order.Api.Controllers
     {
         private readonly OrderDbContext _context;
         private readonly IProductService _productService;
+        private readonly Tracer _tracer;
         private readonly ILogger<OrdersController> _logger;
         private const string GET_ORDER = "GetOrder";
 
         public OrdersController(
             OrderDbContext context, 
             IProductService productService,
+            Tracer tracer,
             ILogger<OrdersController> logger)
         {
             _context = context;
             _productService = productService;
+            _tracer = tracer;
             _logger = logger;
         }
 
@@ -48,6 +53,12 @@ namespace Order.Api.Controllers
 
             var products = await _productService.GetProducts(productUIds, cancellationToken);
 
+            using var span = _tracer.StartActiveSpan("DoWorkMethod");
+            span.SetAttribute("operation.value", 1);
+            span.AddEvent("Prior to calling the method");
+            await DoWorkMethod();
+            span.AddEvent("After calling the method");
+
             Console.WriteLine($"Managed to deserialize it");
 
             if (products is null)
@@ -67,6 +78,11 @@ namespace Order.Api.Controllers
             Console.WriteLine($"Saved products");
 
             return CreatedAtAction(GET_ORDER, new { id = domainOrder.Id }, domainOrder.ToOutputOrder());
+        }
+
+        private async Task DoWorkMethod()
+        {
+            await Task.Delay(2000);
         }
 
         [HttpPut("{id}")]

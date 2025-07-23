@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 using Npgsql;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
@@ -11,6 +10,8 @@ using Product.Api.Infrastructure;
 const string API_NAME = "products";
 
 var builder = WebApplication.CreateBuilder(args);
+builder.AddServiceDefaults();
+var isAspire = Environment.GetEnvironmentVariable("RUNNING_UNDER_ASPIRE") == "true";
 
 // Add services to the container.
 
@@ -27,30 +28,60 @@ options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
 builder.Services.AddHealthChecks()
     .AddDbContextCheck<ProductDbContext>("DbChecks", tags: ["dbcheck"]);
 
-builder.Logging.AddOpenTelemetry(options =>
+if (isAspire)
 {
-    options
-        .SetResourceBuilder(
-            ResourceBuilder.CreateDefault()
-                .AddService(API_NAME))
-        .AddConsoleExporter()
-        .AddOtlpExporter();
-});
+    builder.Logging.AddOpenTelemetry(options =>
+    {
+        options
+            .SetResourceBuilder(
+                ResourceBuilder.CreateDefault()
+                    .AddService(API_NAME))
+            //.AddConsoleExporter()
+            /*.AddOtlpExporter()*/;
+    });
 
-builder.Services.AddOpenTelemetry()
-      .ConfigureResource(resource => resource.AddService(API_NAME))
-      .WithTracing(tracing => tracing
-          .SetSampler(new AlwaysOnSampler())
-          .AddSource(API_NAME)
-          .AddAspNetCoreInstrumentation()
-          .AddHttpClientInstrumentation()
-          .AddConsoleExporter()
-          .AddNpgsql()
-          .AddOtlpExporter())
-      .WithMetrics(metrics => metrics
-          .AddAspNetCoreInstrumentation()
-          .AddConsoleExporter()
-          .AddPrometheusExporter());
+    builder.Services.AddOpenTelemetry()
+          .ConfigureResource(resource => resource.AddService(API_NAME))
+          .WithTracing(tracing => tracing
+              .SetSampler(new AlwaysOnSampler())
+              .AddSource(API_NAME)
+              .AddAspNetCoreInstrumentation()
+              .AddHttpClientInstrumentation()
+              //.AddConsoleExporter()
+              .AddNpgsql()
+              /*.AddOtlpExporter()*/)
+          .WithMetrics(metrics => metrics
+              .AddAspNetCoreInstrumentation()
+              //.AddConsoleExporter()
+              .AddPrometheusExporter());
+}
+else
+{
+    builder.Logging.AddOpenTelemetry(options =>
+    {
+        options
+            .SetResourceBuilder(
+                ResourceBuilder.CreateDefault()
+                    .AddService(API_NAME))
+            .AddConsoleExporter()
+            .AddOtlpExporter();
+    });
+
+    builder.Services.AddOpenTelemetry()
+          .ConfigureResource(resource => resource.AddService(API_NAME))
+          .WithTracing(tracing => tracing
+              .SetSampler(new AlwaysOnSampler())
+              .AddSource(API_NAME)
+              .AddAspNetCoreInstrumentation()
+              .AddHttpClientInstrumentation()
+              .AddConsoleExporter()
+              .AddNpgsql()
+              .AddOtlpExporter())
+          .WithMetrics(metrics => metrics
+              .AddAspNetCoreInstrumentation()
+              .AddConsoleExporter()
+              .AddPrometheusExporter());
+}
 
 var app = builder.Build();
 

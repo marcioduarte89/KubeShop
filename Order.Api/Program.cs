@@ -11,6 +11,8 @@ using Order.Api.Services;
 const string API_NAME = "orders";
 
 var builder = WebApplication.CreateBuilder(args);
+builder.AddServiceDefaults();
+var isAspire = Environment.GetEnvironmentVariable("RUNNING_UNDER_ASPIRE") == "true";
 
 // Add services to the container.
 
@@ -24,7 +26,7 @@ builder.Services.AddSwaggerGen(opt =>
 
 builder.Services.AddHttpClient<IProductService, ProductService>(client =>
 {
-    client.BaseAddress = new Uri(builder.Configuration["ProductApiUrl"]);
+    client.BaseAddress = new Uri(!isAspire ? builder.Configuration["ProductApiUrl"] : $"{builder.Configuration["services:ProductApi:https:0"]}/api/");
 });
 
 builder.Services.AddHealthChecks();
@@ -35,30 +37,62 @@ builder.Services.AddDbContext<OrderDbContext>(options =>
 builder.Services.AddHealthChecks()
     .AddDbContextCheck<OrderDbContext>("DbChecks", tags: ["dbcheck"]);
 
-builder.Logging.AddOpenTelemetry(options =>
+if (isAspire)
 {
-    options
-        .SetResourceBuilder(
-            ResourceBuilder.CreateDefault()
-                .AddService(API_NAME))
-        .AddConsoleExporter()
-        .AddOtlpExporter();
-});
+    builder.Services.AddSingleton(TracerProvider.Default.GetTracer(API_NAME));
 
-builder.Services.AddOpenTelemetry()
-      .ConfigureResource(resource => resource.AddService(API_NAME))
-      .WithTracing(tracing => tracing
-          .SetSampler(new AlwaysOnSampler())
-          .AddSource(API_NAME)
-          .AddAspNetCoreInstrumentation()
-          .AddHttpClientInstrumentation()
-          .AddConsoleExporter()
-          .AddNpgsql()
-          .AddOtlpExporter())
-      .WithMetrics(metrics => metrics
-          .AddAspNetCoreInstrumentation()
-          .AddConsoleExporter()
-          .AddPrometheusExporter());
+    builder.Logging.AddOpenTelemetry(options =>
+    {
+        options
+            .SetResourceBuilder(
+                ResourceBuilder.CreateDefault()
+                    .AddService(API_NAME))
+            //.AddConsoleExporter()
+            /*.AddOtlpExporter()*/;
+    });
+
+    builder.Services.AddOpenTelemetry()
+          .ConfigureResource(resource => resource.AddService(API_NAME))
+          .WithTracing(tracing => tracing
+              .SetSampler(new AlwaysOnSampler())
+              .AddSource(API_NAME)
+              .AddAspNetCoreInstrumentation()
+              .AddHttpClientInstrumentation()
+              //.AddConsoleExporter()
+              .AddNpgsql()
+              /*.AddOtlpExporter()*/)
+          .WithMetrics(metrics => metrics
+              .AddAspNetCoreInstrumentation()
+              //.AddConsoleExporter()
+              .AddPrometheusExporter());
+}
+else
+{
+    builder.Logging.AddOpenTelemetry(options =>
+    {
+        options
+            .SetResourceBuilder(
+                ResourceBuilder.CreateDefault()
+                    .AddService(API_NAME))
+            .AddConsoleExporter()
+            .AddOtlpExporter();
+    });
+
+    builder.Services.AddOpenTelemetry()
+          .ConfigureResource(resource => resource.AddService(API_NAME))
+          .WithTracing(tracing => tracing
+              .SetSampler(new AlwaysOnSampler())
+              .AddSource(API_NAME)
+              .AddAspNetCoreInstrumentation()
+              .AddHttpClientInstrumentation()
+              .AddConsoleExporter()
+              .AddNpgsql()
+              .AddOtlpExporter())
+          .WithMetrics(metrics => metrics
+              .AddAspNetCoreInstrumentation()
+              .AddConsoleExporter()
+              .AddPrometheusExporter());
+}
 
 var app = builder.Build();
 
